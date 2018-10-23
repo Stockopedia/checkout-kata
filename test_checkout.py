@@ -1,5 +1,5 @@
 from nose.tools import eq_
-from checkout import Checkout, CheckoutItem, Discount
+from checkout import Checkout, CheckoutItem, ItemDiscount, ThresholdDiscount
 
 STUB_ITEM_NO_DISCOUNT = CheckoutItem('tomatoes', 'Tomatoes', 10)
 
@@ -7,7 +7,7 @@ STUB_ITEM_PERCENT_DISCOUNT = CheckoutItem(
     'batteries', 
     'Batteries', 
     20, 
-    Discount(2, 10),
+    ItemDiscount(2, 10),
 )
 
 
@@ -46,13 +46,22 @@ class TestCheckout:
         eq_(92, checkout.total((discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id)))
     
     def test_threshold_save_below_threshold(self):
-        assert False, 'Implement test'
+        threshold_discount = ThresholdDiscount(11, 10)
+        checkout = Checkout((STUB_ITEM_NO_DISCOUNT, ), threshold_discount)
+        eq_(10, checkout.total((STUB_ITEM_NO_DISCOUNT.id, )))
     
     def test_threshold_save_at_threshold(self):
-        assert False, 'Implement test'
+        threshold_discount = ThresholdDiscount(10, 10)
+        checkout = Checkout((STUB_ITEM_NO_DISCOUNT, ), threshold_discount)
+        eq_(9, checkout.total((STUB_ITEM_NO_DISCOUNT.id, )))
 
     def test_threshold_save_above_threshold(self):
-        assert False, 'Implement test'
+        threshold_discount = ThresholdDiscount(10, 10)
+        checkout = Checkout((STUB_ITEM_NO_DISCOUNT, ), threshold_discount)
+        eq_(18, checkout.total((STUB_ITEM_NO_DISCOUNT.id, STUB_ITEM_NO_DISCOUNT.id)))
 
     def test_other_discount_disqualifies(self):
-        assert False, 'Implement test'
+        threshold_discount = ThresholdDiscount(40, 10)
+        checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ), threshold_discount)
+        discounted_item_id = STUB_ITEM_PERCENT_DISCOUNT.id
+        eq_(36, checkout.total((discounted_item_id, discounted_item_id)))
