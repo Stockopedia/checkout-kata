@@ -10,4 +10,15 @@ class Checkout:
         pass
 
 
-CheckoutItem = Record.create_type('CheckoutItem', 'id', 'label', 'cost')
+
+
+CheckoutItem = Record.create_type(
+    'CheckoutItem', 
+    'id', 
+    'label', 
+    'cost', 
+    'discount', 
+    discount=None,
+)
+
+Discount = Record.create_type('Discount', 'items', 'rate')

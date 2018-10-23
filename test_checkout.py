@@ -1,7 +1,14 @@
 from nose.tools import eq_
-from checkout import Checkout, CheckoutItem
+from checkout import Checkout, CheckoutItem, Discount
 
 STUB_ITEM_NO_DISCOUNT = CheckoutItem('tomatoes', 'Tomatoes', 10)
+
+STUB_ITEM_PERCENT_DISCOUNT = CheckoutItem(
+    'batteries', 
+    'Batteries', 
+    20, 
+    Discount(2, 10),
+)
 
 class TestCheckout:
 
@@ -14,19 +21,28 @@ class TestCheckout:
         eq_(0, checkout.total([]))
     
     def test_percentage_discount_not_qualifed(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ))
+        eq_(20, checkout.total((STUB_ITEM_PERCENT_DISCOUNT.id, )))
 
     def test_percentage_discount_qualified(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ))
+        discounted_item_id = STUB_ITEM_PERCENT_DISCOUNT.id
+        eq_(36, checkout.total((discounted_item_id, discounted_item_id)))
     
     def test_percentage_discount_additional(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ))
+        discounted_item_id = STUB_ITEM_PERCENT_DISCOUNT.id
+        eq_(56, checkout.total((discounted_item_id, discounted_item_id, discounted_item_id)))
     
     def test_percentage_discount_multiple_exact(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ))
+        discounted_item_id = STUB_ITEM_PERCENT_DISCOUNT.id
+        eq_(72, checkout.total((discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id)))
     
     def test_percentage_discount_multiple_additional(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ))
+        discounted_item_id = STUB_ITEM_PERCENT_DISCOUNT.id
+        eq_(92, checkout.total((discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id)))
     
     def test_free_item_below_threshhold(self):
         assert False, 'Implement test'
