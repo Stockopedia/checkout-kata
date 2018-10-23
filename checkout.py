@@ -8,7 +8,11 @@ class Checkout:
         self._threshold_discount = threshold_discount
 
     def total(self, items):
-        return 0
+        total_cost = 0
+        for item_id in items:
+            item = self._stock_by_id[item_id]
+            total_cost += item.cost
+        return total_cost
 
 
 CheckoutItem = Record.create_type(
