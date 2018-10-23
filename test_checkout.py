@@ -10,12 +10,6 @@ STUB_ITEM_PERCENT_DISCOUNT = CheckoutItem(
     Discount(2, 10),
 )
 
-STUB_ITEM_FREE_ITEM = CheckoutItem(
-    'ready-meal', 
-    'Ready meal', 
-    50, 
-    Discount(3, 100),
-)
 
 class TestCheckout:
 
@@ -50,21 +44,6 @@ class TestCheckout:
         checkout = Checkout((STUB_ITEM_PERCENT_DISCOUNT, ))
         discounted_item_id = STUB_ITEM_PERCENT_DISCOUNT.id
         eq_(92, checkout.total((discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id, discounted_item_id)))
-    
-    def test_free_item_below_threshhold(self):
-        assert False, 'Implement test'
-
-    def test_free_item_at_threshold(self):
-        assert False, 'Implement test'
-    
-    def test_free_item_above_threshold(self):
-        assert False, 'Implement test'
-    
-    def test_free_item_exact_multiple(self):
-        assert False, 'Implement test'
-    
-    def test_free_item_multiple_additional(self):
-        assert False, 'Implement test'
     
     def test_threshold_save_below_threshold(self):
         assert False, 'Implement test'
