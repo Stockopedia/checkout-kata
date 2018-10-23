@@ -10,6 +10,13 @@ STUB_ITEM_PERCENT_DISCOUNT = CheckoutItem(
     Discount(2, 10),
 )
 
+STUB_ITEM_FREE_ITEM = CheckoutItem(
+    'ready-meal', 
+    'Ready meal', 
+    50, 
+    Discount(3, 100),
+)
+
 class TestCheckout:
 
     def test_simple_total(self):
