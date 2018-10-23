@@ -8,7 +8,7 @@ class Checkout:
         self._threshold_discount = threshold_discount
 
     def total(self, items):
-        pass
+        return 0
 
 
 CheckoutItem = Record.create_type(
