@@ -5,5 +5,5 @@ setup(name='checkout',
       description='A simple checkout',
       author='Euan Goddard',
       author_email='euan@stockopedia.com',
-      install_requires=['nose'],
+      install_requires=['nose', 'pyrecord'],
      )

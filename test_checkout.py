@@ -1,12 +1,17 @@
 from nose.tools import eq_
+from checkout import Checkout, CheckoutItem
+
+STUB_ITEM_NO_DISCOUNT = CheckoutItem('tomatoes', 'Tomatoes', 10)
 
 class TestCheckout:
 
     def test_simple_total(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_NO_DISCOUNT, ))
+        eq_(20, checkout.total((STUB_ITEM_NO_DISCOUNT.id, STUB_ITEM_NO_DISCOUNT.id)))
     
     def test_empty(self):
-        assert False, 'Implement test'
+        checkout = Checkout((STUB_ITEM_NO_DISCOUNT, ))
+        eq_(0, checkout.total([]))
     
     def test_percentage_discount_not_qualifed(self):
         assert False, 'Implement test'
