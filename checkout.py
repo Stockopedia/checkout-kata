@@ -16,6 +16,9 @@ class Checkout:
         for item_id, count in items_counter.items():
             total_cost += self._total_item(item_id, count)
         
+        if self._threshold_discount and self._threshold_discount.threshold <= total_cost:
+            total_cost *= ((100 - self._threshold_discount.rate) / 100.0)
+
         return total_cost
     
     def _total_item(self, item_id, count):
